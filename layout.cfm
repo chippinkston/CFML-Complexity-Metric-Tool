@@ -9,11 +9,11 @@
 
 <html lang="en">
 <head>
-	<link rel="stylesheet/less" type="text/css" href="complexity.less">
-	<script src="less.min.js" type="text/javascript"></script>
+	<link rel="stylesheet/less" type="text/css" href="assets/less/complexity.less">
+	<script src="assets/js/less.min.js" type="text/javascript"></script>
 	<title><cfoutput>#attributes.title#</cfoutput></title>
-	<script type="text/javascript" src="jquery.min.js"></script>
-	<script type="text/javascript" src="jquery.colorfade.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.min.js"></script>
+	<script type="text/javascript" src="assets/js/jquery.colorfade.js"></script>
 	<meta charset="utf-8" />
 </head>
 <body>
@@ -52,6 +52,6 @@
 <cfif isDebugMode()>
 	<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 </cfif>
-
+<cfdump var="#application#">
 </body>
 </html></cfif>
