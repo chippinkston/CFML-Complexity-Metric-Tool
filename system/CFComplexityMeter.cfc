@@ -296,10 +296,22 @@ For adding/subtracting line by line, show the addition, add to query, THEN (and 
 		<cfreturn q />
 	</cffunction>
 
-	<cffunction name="getNumberOfLines" access="public" output="false" returntype="numeric">
-		<cfargument name="content" type="string" required="true" />
-		<cfreturn arrayLen( arguments.content.split("(\r\n|\r|\n)") ) />
-	</cffunction>
+	<cfscript>
+		public numeric function getNumberOfLines(required string content hint="The string of content we are going to parse"){
+			if(len(arguments.content) == 0){
+				return 0;
+			}
+			if(find("#Chr(10)##Chr(13)#", arguments.content)){
+				//Windows formated - simplify
+				arguments.content = replace(arguments.content, "#Chr(10)##Chr(13)#", "#Chr(10)#", "all");
+			}
+			return arrayLen(arguments.content.split("\n"));
+		}
+	</cfscript>
+	<!---<cffunction name="getNumberOfLines" access="public" output="false" returntype="numeric">--->
+		<!---<cfargument name="content" type="string" required="true" />--->
+		<!---<cfreturn arrayLen( arguments.content.split("(\r\n|\r|\n)") ) />--->
+	<!---</cffunction>--->
 
 
 

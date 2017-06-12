@@ -23,9 +23,9 @@ component{
 	function onApplicationStart(){
 		application.complexity = new system.CFComplexityAppDriver().init();
 		if(structKeyExists(url, 'config')){
-			this.loadConfig(url.config);
+			application.config = this.loadConfig(url.config);
 		}else{
-			this.loadConfig('default');
+			application.config = this.loadConfig('default');
 		}
 	}
 
@@ -40,19 +40,20 @@ component{
 			echo("<hr /><h1>Showing: #url.show# scope</h1>");
 			switch(url.show){
 				case "app":{
-					dump(application);
+					writedump(application);
 				}
 				default:{
-					echo("select a dump scope");
+					writeOutput("select a dump scope");
 					break;
 				}
 			}
 		}
 	}
 
-	private void function loadConfig(required string configFile){
+	private struct function loadConfig(required string configFile){
 		var config = {};
-		var configFile = '/configs/' & arguments.configFile & '.json'
+		var configFile = '/configs/' & arguments.configFile & '.json';
+		config.file = arguments.configFile;
 		if(fileExists(expandPath(configFile))){
 			config = fileRead(configFile);
 		}else{
@@ -61,16 +62,14 @@ component{
 		if(isJSON(local.config)){
 			config = deserializeJSON(config);
 		}
-		for(key in config){
-			application[key] = config[key];
-		}
+		return config;
 	}
 
 	private struct function setDefaults(){
 		result = {
 			baselineComplexity=0,
 			reporter='cfml'
-		};
+		}
 		return result;
 	}
 
