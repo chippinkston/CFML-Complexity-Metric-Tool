@@ -55,9 +55,9 @@ component extends="testbox.system.BaseSpec"{
                 });
             });
             scenario( "A File may use Windows line breaks", function(){
-                given( "I have an file with Windows '\n\r' line breaks", function(){
+                given( "I have an file with Windows '\r\n' line breaks", function(){
                     var testFile = "";
-                    var winLineBreak = Chr(10) & Chr(13);
+                    var winLineBreak = Chr(13) & Chr(10);
                     for(var i=0; i < 10; i++){
                         testFile &= 'foo' & winLineBreak;
                     }

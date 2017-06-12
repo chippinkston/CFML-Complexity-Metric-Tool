@@ -301,11 +301,11 @@ For adding/subtracting line by line, show the addition, add to query, THEN (and 
 			if(len(arguments.content) == 0){
 				return 0;
 			}
-			if(find("#Chr(10)##Chr(13)#", arguments.content)){
+			if(find("#Chr(13)##Chr(10)#", arguments.content)){
 				//Windows formated - simplify
-				arguments.content = replace(arguments.content, "#Chr(10)##Chr(13)#", "#Chr(10)#", "all");
+				arguments.content = replace(arguments.content, "#Chr(13)##Chr(10)#", "#Chr(10)#", "all");
 			}
-			return arrayLen(arguments.content.split("\n"));
+			return listLen(arguments.content, Chr(10));
 		}
 	</cfscript>
 	<!---<cffunction name="getNumberOfLines" access="public" output="false" returntype="numeric">--->
