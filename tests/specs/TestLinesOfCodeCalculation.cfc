@@ -69,6 +69,22 @@ component extends="testbox.system.BaseSpec"{
                     });
                 });
             });
+            scenario("A file may have a large number of lines", function(){
+                given( "I have an file with many line breaks", function(){
+                    var testFile = "";
+                    var winLineBreak = Chr(13) & Chr(10);
+                    var bigFile = randRange(10000,20000);
+                    for(var i=0; i < bigFile; i++){
+                        testFile &= 'foo' & winLineBreak;
+                    }
+                    when( "I check it's complexity", function(){
+                        then( "it should return #bigFile#", function(){
+                            var loc = variables.report.getFileNumberOfLines(testFile);
+                                expect(loc).toBe(bigFile);
+                        });
+                    });
+                });
+            });
         });
 
     }

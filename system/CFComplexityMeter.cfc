@@ -223,24 +223,23 @@ For adding/subtracting line by line, show the addition, add to query, THEN (and 
 	<!---
 		COMPLEXITY IMPLEMENTATION METHODS
 	--->
-	<cffunction name="getBasicComplexityCount" access="private" output="false" returntype="numeric" hint="Counts code complexity of a string">
-		<cfargument name="content" type="string" required="true" />
-		<cfscript>
-			var linesOfCode = arguments.content.split("[\r\n]+");
+	<cfscript>
+		private numeric function getBasicComplexityCount(required string content hint="The content to Check"){
+			var linesOfCode = getNumberOfLines(arguments.content);
 			var complexity = 1;
 
 			// every 100 lines of code add 1 to the content's complexity
-			complexity = complexity + int(arrayLen(linesOfCode) / 100);
+			complexity = complexity + int(linesOfCode / 100);
 
 			// complexity count for cf tags
 			complexity = complexity + arrayLen( arguments.content.split("(<cfif\s|<cfelseif\s|<cfcase\s|<cfloop\s|<cfoutput\s*query|iif\s*\()") ) -1;
 
-			// complexity count for cfscript or javascript
-			complexity = complexity + arrayLen( arguments.content.split("(\s(if|for|while|do|foreach)\s*\(|\scase\s+[\w""\s]+:)") ) -1;
-		</cfscript>
+		    // complexity count for cfscript or javascript
+    		complexity = complexity + arrayLen( arguments.content.split("(\s(if|for|while|do|foreach)\s*\(|\scase\s+[\w""\s]+:)") ) -1;
 
-		<cfreturn complexity />
-	</cffunction>
+			return complexity;
+		}
+	</cfscript>
 
 	<cffunction name="getDetailedComplexity" access="private" output="false" returntype="query" hint="Counts code complexity of a string">
 		<cfargument name="content" type="string" required="true" />
